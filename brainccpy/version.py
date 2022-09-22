@@ -17,7 +17,7 @@ if _version_extra:
 
 __version__ = '.'.join(map(str, _ver))
 
-CLASSIFIERS = ["Development Status :: 0 - Alpha",
+CLASSIFIERS = ["Development Status :: 1 - Planning",
                "Environment :: Console",
                "Intended Audience :: Science/Research",
                "License :: MIT License",
