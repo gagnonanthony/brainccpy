@@ -11,5 +11,5 @@ for usage, and a DISCLAIMER OF ALL WARRANTIES.
 
 All trademarks referenced herein are property of their respective holders.
 
-Copyright (c) 2022, Anthony Gagnon
+Copyright (c) 2022, Anthony Gagnon,
 Université de Sherbrooke
