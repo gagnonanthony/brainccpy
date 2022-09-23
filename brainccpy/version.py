@@ -20,10 +20,10 @@ __version__ = '.'.join(map(str, _ver))
 CLASSIFIERS = ["Development Status :: 1 - Planning",
                "Environment :: Console",
                "Intended Audience :: Science/Research",
-               "License :: MIT License",
+               "License :: OSI Approved :: MIT License",
                "Operating System :: OS Independent",
                "Programming language :: Python",
-               "Topic :: Scientific/Neurosciences"]
+               "Topic :: Scientific/Engineering"]
 
 # Description should be a one-liner:
 description = "Brainccpy : Brain & Cognitive Constructs tools and utilities."
