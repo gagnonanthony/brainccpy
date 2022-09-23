@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.preprocessing import (QuantileTransformer,
+                                   PowerTransformer)
 import pandas as pd
 
 
@@ -26,10 +27,37 @@ def plot_dist(df, ind1, ind2):
 def remove_nans(df):
     """
     Script design to remove all rows containing NaNs.
-    :param df:
-    :return:
+    :param df:  Pandas dataframe object.
+    :return:    Pandas dataframe object.
     """
     df.dropna(inplace=True)
     df.reset_index(drop=True, inplace=True)
 
     return df
+
+
+def quantile_transform(df, nb_qt):
+    """
+
+    :param df:
+    :param nb_qt:
+    :return:
+    """
+    qt = QuantileTransformer(n_quantiles=nb_qt, random_state=0,
+                             output_distribution='uniform')
+    out = qt.fit_transform(df)
+
+    return out
+
+
+def power_transform(df, method):
+    """
+
+    :param df:
+    :param method:
+    :return:
+    """
+    pw = PowerTransformer(method=f'{method}', standardize=True)
+    out = pw.fit_transform(df)
+
+    return out
