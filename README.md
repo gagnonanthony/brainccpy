@@ -5,10 +5,13 @@ cognitive constructs relationships.
 
 Installation
 =======
-To install this library, please do the following command (virtual python
-environment such as miniconda or virtualenv is recommended) :
+To install this library, please do the following commands (virtual python
+environment such as miniconda or virtualenv are recommended) :
+
 ``git clone https://github.com/gagnonanthony/brainccpy.git``
+
 ``cd brainccpy``
+
 ``pip install -e .``
 
 License
