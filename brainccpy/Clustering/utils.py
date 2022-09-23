@@ -2,7 +2,8 @@
 
 import seaborn as sns
 from sklearn.preprocessing import (QuantileTransformer,
-                                   PowerTransformer)
+                                   PowerTransformer,
+                                   StandardScaler)
 import pandas as pd
 
 
@@ -59,5 +60,17 @@ def power_transform(df, method):
     """
     pw = PowerTransformer(method=f'{method}', standardize=True)
     out = pw.fit_transform(df)
+
+    return out
+
+
+def standard_scale(df):
+    """
+
+    :param df:
+    :return:
+    """
+    stsc = StandardScaler()
+    out = stsc.fit_transform(df)
 
     return out

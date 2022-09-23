@@ -12,7 +12,8 @@ import pandas as pd
 import numpy as np
 from brainccpy.Clustering.utils import (remove_nans,
                                         quantile_transform,
-                                        power_transform)
+                                        power_transform,
+                                        standard_scale)
 
 
 def _build_arg_parser():
@@ -58,6 +59,9 @@ def main():
         if d[f'{a}'] == 'yeo-johnson':
             dt = power_transform(np.array(df.loc[:, f'{a}']).reshape((length, 1)),
                                  method='yeo-johnson')
+            df.loc[:, f'{a}'] = dt
+        if d[f'{a}'] == 'scale':
+            dt = standard_scale(np.array(df.loc[:, f'{a}']).reshape((length, 1)))
             df.loc[:, f'{a}'] = dt
 
     df.to_excel(f'{args.out_df}', header=True, index=False)
