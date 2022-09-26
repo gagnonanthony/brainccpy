@@ -1,7 +1,7 @@
 # Brainccpy : Brain & Cognitive Constructs tools and utilities.
 
-Brainccpy is a small library containing tools to investiguate brain and
-cognitive constructs relationships.
+Brainccpy is a small library containing tools to investigate relationships between
+brain's physiology and cognitive constructs.
 
 Installation
 =======
