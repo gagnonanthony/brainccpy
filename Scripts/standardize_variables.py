@@ -13,7 +13,8 @@ import numpy as np
 from brainccpy.Clustering.utils import (remove_nans,
                                         quantile_transform,
                                         power_transform,
-                                        standard_scale)
+                                        standard_scale,
+                                        log_transform)
 
 
 def _build_arg_parser():
@@ -29,6 +30,8 @@ def _build_arg_parser():
                         'to each variables.')
     p.add_argument('--nb_quant', required=False, default=100, type=int,
                    help='Number of quantiles to separate data into when using quantiles transform.')
+    p.add_argument('--out_dist', choices=['normal', 'uniform'], default='uniform',
+                   help='Output distribution when using QuantilesTransform.')
 
     return p
 
@@ -50,7 +53,7 @@ def main():
     for a in d.keys():
         if d[f'{a}'] == 'quant':
             dt = quantile_transform(np.array(df.loc[:, f'{a}']).reshape((length, 1)),
-                                    args.nb_quant)
+                                    args.nb_quant, args.out_dist)
             df.loc[:, f'{a}'] = dt
         if d[f'{a}'] == 'box-cox':
             dt = power_transform(np.array(df.loc[:, f'{a}']).reshape((length, 1)),

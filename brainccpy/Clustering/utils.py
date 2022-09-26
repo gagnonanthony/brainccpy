@@ -37,7 +37,7 @@ def remove_nans(df):
     return df
 
 
-def quantile_transform(df, nb_qt):
+def quantile_transform(df, nb_qt, output_dist):
     """
 
     :param df:
@@ -45,7 +45,7 @@ def quantile_transform(df, nb_qt):
     :return:
     """
     qt = QuantileTransformer(n_quantiles=nb_qt, random_state=0,
-                             output_distribution='uniform')
+                             output_distribution=f'{output_dist}')
     out = qt.fit_transform(df)
 
     return out
