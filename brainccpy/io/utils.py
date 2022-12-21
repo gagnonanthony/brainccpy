@@ -3,6 +3,7 @@
 import argparse
 import logging
 import itertools
+import sys
 import numpy as np
 import shutil
 import os
@@ -159,3 +160,17 @@ def compute_matrices_density(mat):
     dens = dic[1] / tot * 100
 
     return dens
+
+
+def configure_logging_handler():
+    """
+    Configure logging handler to log file and to a stream handler.
+    """
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)
+
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(message)s')
+    handler.setFormatter(formatter)
+    root.addHandler(handler)
