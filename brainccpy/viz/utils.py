@@ -52,7 +52,7 @@ def track_clustering(mat, verbose=False):
         while k <= len(pairs):
             # Sorting clusters
             ix = pairs[np.isin(pairs[:, 0], i), 1]
-            iy = pairs[np.isin(pairs[:, 1], ix), 0]
+            iy = pairs[np.isin(pairs[:, 1], i), 0]
             im = np.append(ix, iy)
             iu = np.unique(np.append(i, im))
             k += 1
@@ -60,7 +60,7 @@ def track_clustering(mat, verbose=False):
                 break
             else:
                 i = iu
-        logging.debug(f'Cluster #{n} took {k} iterations to extract.')
+        #logging.debug(f'Cluster #{n} took {k} iterations to extract.')
         # Saving cluster in dictionary as pairs (X_Y).
         x = pairs[np.isin(pairs[:, 1], i), 0]
         y = pairs[np.isin(pairs[:, 0], i), 1]
