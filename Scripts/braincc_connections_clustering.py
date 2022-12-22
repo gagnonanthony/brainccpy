@@ -4,13 +4,15 @@
 
 import argparse
 import os
+import logging
 
+import json
 import numpy as np
 from brainccpy.viz.utils import track_clustering
-from brainccpy.io.utils import (add_verbose_arg,
-                                add_overwrite_arg,
-                                validate_input,
-                                validate_output_dir)
+from scilpy.io.utils import (add_overwrite_arg,
+                             add_verbose_arg,
+                             assert_inputs_exist,
+                             assert_output_dirs_exist_and_empty)
 
 
 def _build_arg_parser():
@@ -30,7 +32,10 @@ def _build_arg_parser():
                         'Connections should be saved in the format X_Y.trk in order to be correctly \n'
                         'read by scil_streamlines_math.py.')
     p.add_argument('--output',
-                   help='Directory output folder.')
+                   help='Main output folder. Output structure will be : \n'
+                        '                    output/Raw_Connections/ (if --run_decompose)\n'
+                        '                          /Clusters/ \n'
+                        '                          /Clusters.json \n')
 
     add_verbose_arg(p)
     add_overwrite_arg(p)
@@ -42,12 +47,17 @@ def main():
     parser = _build_arg_parser()
     args = parser.parse_args()
 
-    validate_input(parser, args.input, args.hdf5)
-    validate_output_dir(parser, args, args.output)
+    if args.verbose:
+        logging.getLogger().setLevel(logging.INFO)
+
+    assert_inputs_exist(parser, args.input, args.hdf5)
+    assert_output_dirs_exist_and_empty(parser, args, args.output)
 
     # Create clusters.
     mat = np.load(args.input)
-    cluster_dict = track_clustering(mat, verbose=(True if args.verbose else False))
+    cluster_dict = track_clustering(mat)
+    with open(f'{args.output}/Cluster.json', 'w') as fp:
+        json.dump(cluster_dict, fp)
 
     if args.run_decompose:
         if args.hdf5 is None:
@@ -73,7 +83,7 @@ def main():
     for cluster in cluster_dict.keys():
         files = [f'{out_dir_raw}/{f}.trk' for f in cluster_dict[f'{cluster}']]
 
-        os.system(f'scil_streamlines_math.py concatenate {" ".join(files)} {out_dir}/{cluster}.trk --robust -f -v')
+        os.system(f'scil_streamlines_math.py concatenate {" ".join(files)} {out_dir}/{cluster}.trk --robust -f {"-v" if args.verbose else ""}')
 
 
 if __name__ == '__main__':
