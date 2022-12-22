@@ -47,7 +47,7 @@ def main():
 
     # Create clusters.
     mat = np.load(args.input)
-    cluster_dict = track_clustering(mat, verbose=args.verbose)
+    cluster_dict = track_clustering(mat, verbose=(True if args.verbose else False))
 
     if args.run_decompose:
         if args.hdf5 is None:
